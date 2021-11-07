@@ -1,0 +1,829 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TargitChartApi</name>
+    </assembly>
+    <members>
+        <member name="T:TargitChartApi.Attribute.CustomIntRangeAttribute">
+            <summary>
+                Specify minimum, maximum and optional step size for custom integer properties
+            </summary>
+        </member>
+        <member name="M:TargitChartApi.Attribute.CustomIntRangeAttribute.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+                Specify minimum, maximum and optional step size for custom integer properties
+            </summary>
+            <param name="minimum">Minimum</param>
+            <param name="maximum">Maximum</param>
+            <param name="stepSize">Step size</param>
+        </member>
+        <member name="M:TargitChartApi.Attribute.PluginDescriptionAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+                <para>Use this attribute to supply the plugin with a name and short description to present in the chart picklist.</para>
+                <para>Repeat with language codes to support multiple languages.</para>
+                <para>Examples:</para>
+                <para>
+                    [PluginDescription("Line chart", "The line chart shows a progression of values, connected by lines to
+                    highlight the differences.")]
+                </para>
+                <para>
+                    [PluginDescription("Bullet graph", "A linear and no-frills design provides a rich display of data in a small
+                    space.")]
+                </para>
+            </summary>
+            <param name="label">Short label used in the chart picklist, e.g. "Line chart" or "Bullet graph"</param>
+            <param name="description">
+                Short description to present in the chart picklist, e.g. "The line chart shows a progression of values,
+                connected by lines to highlight the differences."
+            </param>
+            <param name="languageCode">
+                <para>Support multiple languages by adding translated labels and descriptions with a language code.</para>
+                <para>Example:</para>
+                <para>[PluginDescription("SingleSeriesModel.Label1", "Bar chart", "")]</para>
+                <para>[PluginDescription("SingleSeriesModel.Label1", "Søjlediagram", "", "da-DK")]</para>
+            </param>
+        </member>
+        <member name="T:TargitChartApi.Attribute.PluginIconAttribute">
+            <summary>
+                Use this attribute to provide an icon resource to your chart
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Attribute.PluginIconAttribute.ResourceName">
+            <summary>
+                The resource name of the icon.
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Attribute.PluginIconAttribute.Size">
+            <summary>
+                The size (in pixels) of the icon. Only square icons are supported.
+            </summary>
+        </member>
+        <member name="M:TargitChartApi.Attribute.PluginIconAttribute.#ctor(System.String,System.Int32)">
+            <summary>
+                Adds an icon to your plugin
+            </summary>
+            <param name="resourceName">
+                The resource name of the icon. Remember to set your icon file's build action to "Embedded
+                Resource". The resource name is typically in this format: DefaultNameSpace.Resources.Icon.png
+            </param>
+            <param name="size">The size (in pixels) of the icon. Icons must be square, therefore width and height is the same</param>
+        </member>
+        <member name="M:TargitChartApi.Attribute.PluginIconAttribute.GetIcon(System.Type)">
+            <summary>
+                Call this to get the icon from the chart as a Bitmap
+            </summary>
+            <param name="type">The Type of the chart you want the icon from</param>
+            <returns>The icon bitmap</returns>
+        </member>
+        <member name="M:TargitChartApi.Attribute.PluginIconAttribute.GetIconStream(System.Type)">
+            <summary>
+                Call this to get the icon from the chart as a Stream
+            </summary>
+            <param name="type">The Type of the chart you want the icon from</param>
+            <returns>The icon bitmap</returns>
+        </member>
+        <member name="T:TargitChartApi.Definition.ChartConfigMapLocationImage">
+            <summary>
+            Add as custom property to get map location image, and to use the IMember.Location property for member locations:
+            new CustomPropertyConfig&lt;ChartConfigMapLocationImage&gt; { Name="Map", PropertyPath="IChartMultiSeries" }
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.ChartConfigMapImage">
+            <summary>
+            Add as custom property to get map image:
+            new CustomPropertyConfig&lt;ChartConfigMapImage&gt; { Name="Map", PropertyPath="IChartMultiSeries" }
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.ChartConfigMapGeoSection">
+            <summary>
+            Add as custom property to get map image with geograhical coordinates of the area it represents:
+            new CustomPropertyConfig&lt;ChartConfigMapGeoSection&gt; { Name="Map", PropertyPath="IChartMultiSeries" }
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.CustomPropertyConfig">
+            <summary>
+            <para>Custom property class description</para>
+            <para>Supported property types: See IntelliSense for the CustomPropertyType enumeration</para>
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.CustomPropertyConfig.Name">
+            <summary>
+            Name is the identifier to use after "Custom." in the property path
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.CustomPropertyConfig.ClassName">
+            <summary>
+            Used by the dialog editor to generate nameof() calls
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.CustomPropertyConfig`1">
+            <summary>
+            <para>Use this generic when listing custom property classes in TemplateConfig.CustomProperties</para>
+            <para>Supported property types: See IntelliSense for the CustomPropertyType enumeration</para>
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:TargitChartApi.Definition.CustomProperty">
+            <summary>
+            <para>Individual properties are represented to the Api by CustomProperty instances</para>
+            <para>Supported property types: See IntelliSense for the CustomPropertyType enumeration</para>
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.CustomProperty.EnumTypeName">
+            <summary>
+            For Type == CustomPropertyType.Enum, used by the dialog editor to generate nameof() calls
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.CustomProperty.Default">
+            <summary>
+            Default value for the property; populated by the [DefaultValue()] attribute
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.CustomProperty.EditorInfo">
+            <summary>
+            Type-specific extra metadata for the editor
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.CustomPropertyType">
+            <summary>
+            Supported property types
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Bool">
+            <summary>
+            PropertyType == typeof(bool)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Text">
+            <summary>
+            PropertyType == typeof(string)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Int">
+            <summary>
+            PropertyType == typeof(int)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Double">
+            <summary>
+            PropertyType == typeof(double)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Enum">
+            <summary>
+            PropertyType.IsEnum
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Color">
+            <summary>
+            PropertyType == typeof(System.Windows.Media.Color)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.LineStyle">
+            <summary>
+            PropertyType == typeof(TargitChartApi.ViewModel.Item.Part.ILineStyle)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.Image">
+            <summary>
+            PropertyType == typeof(TargitChartApi.ViewModel.Item.IImage)
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.CustomPropertyType.LocationImage">
+            <summary>
+            PropertyType == typeof(TargitChartApi.ViewModel.Item.ILocationImage)
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.CustomPropertyEnumInfo">
+            <summary>
+            Editor metadata for enumeration properties
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.CustomPropertyIntInfo">
+            <summary>
+            Editor metadata for int properties, populated by the [CustomIntRange()] attribute
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.ConfigTestAllOf">
+            <summary>
+            This test passes only if all the contained tests pass.
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.ConfigTestAnyOf">
+            <summary>
+            This test passes if any one of the contained tests pass.
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.ConfigTestValue">
+            <summary>
+            A specific configuration value must pass this test
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.ConfigTestValue.ConfigPath">
+            <summary>
+            Path to the property to be tested
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.DefineModeConfig">
+            <summary>
+            Specify where dimensions and measures should be listed in define mode
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.DialogContentGroup">
+            <summary>
+            A group of DialogContentItems
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.IDefineModeInfo">
+            <summary>
+            Parameters for ITemplate.IsValidDefineMode()
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.IDefineModeInfo.MeasureCount">
+            <summary>
+            Number of measures and calculations in the crosstab
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.IDefineModeInfo.ColumnDimCount">
+            <summary>
+            Number of dimensions on the X-axis in the crosstab (generating columns)
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.IDefineModeInfo.RowDimCount">
+            <summary>
+            Number of dimensions on the Y-axis in the crosstab (generating rows)
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.DialogContents">
+            <summary>
+            Describes the contents of the property dialog
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DialogContents.Tabs">
+            <summary>
+            List of dialog tabs and their contents
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DialogContents.StartupTab">
+            <summary>
+            Which tab should be selected when opening the dialog
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DialogContents.PropertyTexts">
+            <summary>
+            Translations of values, enumeration values etc.
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DialogContents.IgnoredProperties">
+            <summary>
+            Ignored (hidden) enumeration values etc.
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.ChartProperty">
+            <summary>
+            Base class for all classes that need a property path
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.TemplateConfig">
+            <summary>
+            Configuration of the template, e.g. IChartMultiSeries
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.NumericAxes">
+            <summary>
+            List your supported numeric axes here
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.StaticValueCount">
+            <summary>
+            Specifies that a static number of values is used (and required)
+            When zero, values are dynamically generated from the actual measures and calculations in the crosstab
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.DefaultValueColorOrigin">
+            <summary>
+            Default color origin when using 'Automatic' for INumericValue.FillColor/StrokeColor
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.RegressionSupport">
+            <summary>
+            If the chart does not support regression, disable it here
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.MemberLocationMode">
+            <summary>
+            Specify how IMember.Location should behave
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.MapImageMode">
+            <summary>
+            Specify supported map image types
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.UseCustomMemberLocationEditor">
+            <summary>
+            Use custom member location editor
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.RequiredProperties">
+            <summary>
+            Required values do not get a "Do not show" option in the value origin combo box
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.DefaultValues">
+            <summary>
+            Default property values
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.CustomProperties">
+            <summary>
+            List your custom properties here
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.TemplateConfig.DefineModeConfig">
+            <summary>
+            Specify where dimensions and measures should be listed in define mode
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.ValueColorOrigin.Automatic">
+            <summary>
+            if StaticValueCount > 0 then Row else Column
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.Definition.RegressionSupport.Automatic">
+            <summary>
+            If StaticValueCount > 0 then regression is disabled
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.DefaultValue">
+            <summary>
+            Default property values
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DefaultValue.Value">
+            <summary>
+            Default value; the format depends on the property
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DefaultValue.PersistenceSiblingCharts">
+            <summary>
+            Useful for making the user's choice persistent across sibling charts, while still providing a default value.
+            When changing from one chart type to another, if the other chart id is in this list, the value will not be reapplied.
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.DialogContentItem">
+            <summary>
+            Property editor item
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DialogContentItem.IsEnabled">
+            <summary>
+            Is this item enabled or grayed out, depending on the users' current selection of other properties
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.Definition.DialogContentItem.IsVisible">
+            <summary>
+            Is this item visible or hidden, depending on the users' current selection of other properties
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.Definition.PropertyText">
+            <summary>
+            Translation of a value, enumeration value etc.
+            </summary>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.GetTemplateConfig">
+            <summary>
+                Configures custom properties, default values etc. for the chart.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.GetDialogContents">
+            <summary>
+                The chart property dialog is configured by filling out the DialogContents class, which describes tabs, tab contents,
+                alternate leading texts and which propeties are required or ignored by the chart.
+            </summary>
+            <returns>The definition of the desired dialog contents</returns>
+        </member>
+        <member name="P:TargitChartApi.ITemplate.RenderWithoutAnimations">
+            <summary>
+                True indicates that the rendered chart should not contain animations, as it will be
+                shown as a flat bitmap rendering.
+            </summary>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.GetRenderedControl">
+            <summary>
+                After all other API calls are applied, TARGIT requests the rendered chart by calling this function.
+            </summary>
+            <returns>The rendered chart</returns>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.GetClickableAt(System.Windows.Point,System.Windows.Size)">
+            <summary>
+                When clicking a flat bitmap rendering of a chart, which has no click events, we need another way of finding the
+                corresponding crosstab position of the point clicked.
+                The API supplies the crosstab positions, but it can not know the visual layout of a chart that implements it.
+                This function connects the crosstab positions to their rendered ui element counterparts.
+            </summary>
+            <param name="clickPosition">The point clicked</param>
+            <param name="contentSize">The size of the flat bitmap rendering of the chart</param>
+            <returns>The clickable item corresponding to its ui element counterpart. </returns>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.GetHintAt(System.Windows.Point,System.Windows.Size)">
+            <summary>
+                Same as GetCrosstabPositionAt(Point clickPosition, Size contentSize), but should return the hint at that position
+                instead.
+            </summary>
+            <param name="clickPosition">The point clicked</param>
+            <param name="contentSize">The size of the flat bitmap rendering of the chart</param>
+            <returns>The hint corresponding to its ui element counterpart.</returns>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.IsValidDefineMode(TargitChartApi.Definition.IDefineModeInfo,System.String@)">
+            <summary>
+                Determine if sufficient measures and dimensions have been added in define mode
+            </summary>
+            <param name="DefineMode"></param>
+            <param name="ErrorMessage">User-friendly message telling the user what is missing</param>
+            <returns></returns>
+        </member>
+        <member name="M:TargitChartApi.ITemplate.DrillStateUpdated">
+            <summary>
+                Called when all IClickable.DrillState have been updated
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ITemplate.InteractionMode">
+            <summary>
+                InteractionMode != Normal: Enable specialized interaction in the chart properties dialog.
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ITemplate`1.ViewModel">
+            <summary>
+                Set by the API to update data in the chart, this is an implementation of an interface deriving from IChart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.IMemberAxis">
+            <summary>
+            Member axis metadata and configuration
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMemberAxis.MemberLabelAngle">
+            <summary>
+            Clockwise label angle: null for automatic, 0 is horizontal
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMemberAxis.Custom">
+            <summary>
+            Custom properties as specified in TemplateConfig.CustomProperties
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMemberAxis.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.IColumn">
+            <summary>
+            Column metadata and configuration
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.Member">
+            <summary>
+            Column member
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.LabelConfig">
+            <summary>
+            Label style and IsEnabled
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.HintConfig">
+            <summary>
+            Hint style and IsEnabled
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.IncludeFillColorInLegend">
+            <summary>
+            Whether this column fill color should be included in the legend
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.IncludeStrokeColorInLegend">
+            <summary>
+            Whether this column stroke color should be included in the legend
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.NumericAxis">
+            <summary>
+            Which numeric axis in IChartMultiSeries.NumericAxes is this column represented on (-1 if n/a)
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.ColumnType">
+            <summary>
+            Origin of the values in this column
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.Custom">
+            <summary>
+            Custom properties as specified in TemplateConfig.CustomProperties
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColumn.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.ColumnType">
+            <summary>
+            Origin of the values in this column
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.ViewModel.Item.ColumnType.WhatIf">
+            <summary>
+            Simulated values from what-if analysis
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.IImage">
+            <summary>
+            ImageSource type for use in custom properties
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.IColorPalette">
+            <summary>
+            Color palette content
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IColorPalette.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.IAgent">
+            <summary>
+            Description of a crosstab agent
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.IAgent.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.IHaveColors">
+            <summary>
+            Stroke and fill colors
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.IHaveColors.StrokePalette">
+            <summary>
+            Index into IChart.ColorPalettes of the stroke color palette, -1 when not using a palette
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.IHaveColors.FillPalette">
+            <summary>
+            Index into IChart.ColorPalettes of the fill color palette, -1 when not using a palette
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.ILabelConfig">
+            <summary>
+            Text style with an IsEnabled property
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.INumericValue">
+            <summary>
+            Numeric value and other crosstab cell-specific content
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.INumericValue.Value">
+            <summary>
+            Cell value, NaN if null or hidden
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.INumericValue.Agent">
+            <summary>
+            Index into IChart.Agents of the agent applied to this cell, -1 when no agent is applied
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.INumericValue.AgentColor">
+            <summary>
+            Agent color, either the color from the Agent above, or a separate value (gradient color agents), 
+            or transparent when no color agent is applied
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.INumericValue.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.ILegend">
+            <summary>
+            Legend metadata and configuration
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.ILegend.Custom">
+            <summary>
+            Custom properties as specified in TemplateConfig.CustomProperties
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.ILegend.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.Defaults.DefaultCrosstabPosition">
+            <summary>
+                Use this as the default crosstab position, when there is none at the posision clicked.
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.Defaults.DefaultHint">
+            <summary>
+                Use this as the default hint, when there is none at the position clicked.
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.DrillState">
+            <summary>
+            State of a clickable target
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.ViewModel.Item.Part.DrillState.NoDrills">
+            <summary>
+            There are no drilled items
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.ViewModel.Item.Part.DrillState.IsDrilled">
+            <summary>
+            This item is drilled 
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.ViewModel.Item.Part.DrillState.IsDrillContext">
+            <summary>
+            Other items are drilled
+            </summary>
+        </member>
+        <member name="F:TargitChartApi.ViewModel.Item.Part.DrillState.NotDrillable">
+            <summary>
+            This item can't be drilled
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.IClickable">
+            <summary>
+            Clickable target
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.IClickable.HintText">
+            <summary>
+            Use this hint text on mouse hover
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.IClickable.DrillState">
+            <summary>
+            This is the drilled state of this clickable target
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.IClickableLabel">
+            <summary>
+            Clickable target with a label
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.IClickableLabelValue">
+            <summary>
+            Clickable target with a label and a numeric value
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.IClickableLabelValue.NumericValue">
+            <summary>
+            Numeric value and other crosstab cell-specific content
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.ILabelValue">
+            <summary>
+            Label and numeric value
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.Part.ILabelValue.NumericValue">
+            <summary>
+            Numeric value and other crosstab cell-specific content
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.Part.INumberFormat">
+            <summary>
+            Call-back interface to render a numeric value to text
+            </summary>
+        </member>
+        <member name="M:TargitChartApi.ViewModel.Item.Part.INumberFormat.Render(System.Double,System.Boolean)">
+            <summary>
+            Render a numeric value to text
+            </summary>
+            <param name="Value">The numeric value to render</param>
+            <param name="ForceAsPercent">Force format as percent</param>
+            <returns></returns>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMemberLocation.Config">
+            <summary>
+            Custom image-dependent member configuration, e.g. image area id for this member
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMemberLocation.X">
+            <summary>
+            <para>MemberLocationMode.Geographical: Longitude in degrees (from west -180.0 to east 180.0), NaN if not configured</para>
+            <para>MemberLocationMode.ImagePlot: Horizontal position (from left 0.0 to right 1.0), NaN if not configured</para>
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMemberLocation.Y">
+            <summary>
+            <para>MemberLocationMode.Geographical: Latitude in degrees (from south -90.0 to north 90.0), NaN if not configured</para>
+            <para>MemberLocationMode.ImagePlot: Vertical position (from bottom 0.0 to top 1.0), NaN if not configured</para>
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMember.Location">
+            <summary>
+            Location will be null if TemplateConfig.MemberLocationMode is None, or if a location is not applicable to this member.
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IMember.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.IRow">
+            <summary>
+            One row of values from the crosstab
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IRow.Values">
+            <summary>
+            Cells in this row
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.IRow.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.Item.INumericAxis">
+            <summary>
+            Numeric axis metadata and configuration
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.INumericAxis.LowerOutlierThreshold">
+            <summary>
+            Lower outlier threshold, NaN if outlier detection is disabled
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.INumericAxis.UpperOutlierThreshold">
+            <summary>
+            Upper outlier threshold, NaN if outlier detection is disabled
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.INumericAxis.TickLabelAngle">
+            <summary>
+            Clockwise label angle: null for automatic, 0 is horizontal
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.INumericAxis.NumberFormat">
+            <summary>
+            Call-back to render a numeric value as text
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.INumericAxis.Custom">
+            <summary>
+            Custom properties as specified in TemplateConfig.CustomProperties
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.Item.INumericAxis.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.IChartMultiSeries">
+            <summary>
+            Chart with multiple series
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.IChartMultiSeries.Rows">
+            <summary>
+            Rows from the crosstab
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.IChartMultiSeries.Columns">
+            <summary>
+            Column metadata and configurations, corresponding to Rows[].Values
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.IChartMultiSeries.Custom">
+            <summary>
+            Custom properties as specified in TemplateConfig.CustomProperties
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.IChartMultiSeries.Tag">
+            <summary>
+            Available for use in the chart
+            </summary>
+        </member>
+        <member name="T:TargitChartApi.ViewModel.IChart">
+            <summary>
+            Base interface for chart content
+            </summary>
+        </member>
+        <member name="P:TargitChartApi.ViewModel.IChart.CustomConfig">
+            <summary>
+            Stored with the analysis
+            </summary>
+        </member>
+    </members>
+</doc>
